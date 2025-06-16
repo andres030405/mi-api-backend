@@ -4,6 +4,8 @@ const puerto = 3000;
 
 // Middleware para parsear JSON
 app.use(express.json());
+app.use(express.static('public'));
+
 
 // Importar rutas
 const rutasUsuarios = require('./routes/usuarios');
