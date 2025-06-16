@@ -1,16 +1,23 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const puerto = 3000;
 
-// Middleware para JSON
+// Middleware para parsear JSON
 app.use(express.json());
 
-// Endpoint de prueba
-app.get('/api/saludo', (req, res) => {
-  res.json({ mensaje: '¡Hola Andrés, esta es tu API funcionando!' });
-});
+// Importar rutas
+const rutasUsuarios = require('./routes/usuarios');
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
+// Usar rutas
+app.use('/api/usuarios', rutasUsuarios);
+
+// Ruta principal
+app.get('/', (req, res) => {
+    res.send('Bienvenido a mi API de usuarios 🎉');
+  });
+  
+
+// Iniciar servidor
+app.listen(puerto, () => {
+  console.log(`Servidor corriendo en puerto ${puerto}`);
 });
