@@ -3,6 +3,7 @@ const router = express.Router();
 
 const usuarios = require('../data/usuariosData');
 
+// Middleware para procesar body
 
 router.get('/', (req, res) => {
   res.json(usuarios);
@@ -11,6 +12,7 @@ router.get('/', (req, res) => {
 
 // POST: agregar un nuevo usuario
 router.post('/', (req, res) => {
+  
   const nuevoUsuario = req.body;
 
   if (!nuevoUsuario.nombre || !nuevoUsuario.correo) {

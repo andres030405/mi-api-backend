@@ -12,6 +12,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      background-attachment: fixed; /* ← Esto lo mantiene estático */
       color: #f1f1f1;
       text-align: center;
       min-height: 100vh;
@@ -20,19 +21,20 @@
       justify-content: center;
       backdrop-filter: brightness(0.6);
     }
-
+    
+    
     h1 {
       font-size: 3em;
       margin-bottom: 20px;
       text-shadow: 1px 1px 4px #000;
     }
-
+    
     p {
       font-size: 1.2em;
       margin-bottom: 20px;
       text-shadow: 1px 1px 3px #000;
     }
-
+    
     a {
       display: inline-block;
       margin: 10px;
@@ -44,16 +46,126 @@
       font-weight: bold;
       transition: background-color 0.3s ease;
     }
-
+    
     a:hover {
       background-color: rgba(255, 255, 255, 0.2);
     }
+    
+    form {
+      margin: 20px auto;
+      padding: 20px;
+      background-color: rgba(0,0,0,0.4);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    
+    input[type="text"],
+    input[type="email"] {
+      width: 90%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 1em;
+      outline: none;
+      background-color: rgba(255,255,255,0.1);
+      color: #fff;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+    
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder {
+      color: #ccc;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      background-color: rgba(255,255,255,0.2);
+    }
+    
+    button {
+      padding: 12px 24px;
+      font-size: 1em;
+      font-weight: bold;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #0056b3;
+    }
+    
   </style>
 </head>
 <body>
-  <h1>🚀 Bienvenido a mi API REST de Usuarios</h1>
-  <p>Endpoints disponibles:</p>
-  <a href="/api/usuarios">📋 Ver usuarios (GET)</a>
-  <a href="https://github.com/andres030405/mi-api-backend" target="_blank">📁 Código fuente en GitHub</a>
+  <body>
+    <h1>🚀 Bienvenido a mi API REST de Usuarios</h1>
+    <p>Endpoint:</p>
+    <a href="/api/usuarios">📋 Ver usuarios (GET)</a>
+    <a href="https://github.com/andres030405/mi-api-backend" target="_blank">📁 Código fuente en GitHub</a>
+  
+    <hr>
+  
+    <!-- Crear usuario (POST) -->
+    <h2>➕ Crear usuario</h2>
+    <form method="POST" action="/api/usuarios">
+      <input type="text" name="nombre" placeholder="Nombre" required>
+      <input type="email" name="correo" placeholder="Correo" required>
+      <button type="submit">Crear</button>
+    </form>
+  
+    <!-- Actualizar usuario (PUT) -->
+    <h2>🔄 Actualizar usuario</h2>
+    <form onsubmit="updateUser(event)">
+      <input type="text" id="idActualizar" placeholder="ID del usuario" required>
+      <input type="text" id="nombreActualizar" placeholder="Nuevo nombre">
+      <input type="email" name="correo" id="emailActualizar" placeholder="Nuevo correo">
+      <button type="submit">Actualizar</button>
+    </form>
+  
+    <!-- Eliminar usuario (DELETE) -->
+    <h2>❌ Eliminar usuario</h2>
+    <form onsubmit="deleteUser(event)">
+      <input type="text" id="idEliminar" placeholder="ID del usuario" required>
+      <button type="submit">Eliminar</button>
+    </form>
+  
+    <script>
+      async function updateUser(e) {
+        e.preventDefault();
+        const id = document.getElementById('idActualizar').value;
+        const nombre = document.getElementById('nombreActualizar').value;
+        const correo = document.getElementById('emailActualizar').value;
+  
+        const res = await fetch(`/api/usuarios/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, correo })
+        });
+  
+        alert('Usuario actualizado');
+      }
+  
+      async function deleteUser(e) {
+        e.preventDefault();
+        const id = document.getElementById('idEliminar').value;
+  
+        const res = await fetch(`/api/usuarios/${id}`, {
+          method: 'DELETE'
+        });
+  
+        alert('Usuario eliminado');
+      }
+    </script>
+  </body>
+  
 </body>
 </html>

@@ -6,6 +6,9 @@ const puerto = 3000;
 app.use(express.json());
 app.use(express.static('public'));
 
+// 🟢 Middleware global, aquí sí se usa "app"
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Importar rutas
 const rutasUsuarios = require('./routes/usuarios');
