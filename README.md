@@ -56,7 +56,7 @@ PUT	/api/usuarios/:id	Edita un usuario por ID
 DELETE	/api/usuarios/:id	Elimina un usuario por ID
 
 🌐 API Desplegada en Render
-🔗 https://mi-api-backend-07cu.onrender.com/api/usuarios
+🔗 https://mi-api-backend-07cu.onrender.com/
 
 👨‍💻 Autor
 Nombre: Andrés Durán
